@@ -6,7 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class GUIHandler extends JFrame {
@@ -122,9 +125,13 @@ public class GUIHandler extends JFrame {
         var SetProfileButton = new JButton("Profile");
         SetProfileButton.setPreferredSize(new Dimension(100,60));
         SetProfileButton.setVisible(true);
+        var ImportButton = new JButton("Profile");
+        ImportButton.setPreferredSize(new Dimension(100,60));
+        ImportButton.setVisible(true);
 
         mainPanel.add(AboutButton);
         mainPanel.add(SetProfileButton);
+        mainPanel.add(ImportButton);
 
         //About Button event
         AboutButton.addActionListener(new ActionListener() {
@@ -139,6 +146,14 @@ public class GUIHandler extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SetProfilePanel();
+            }
+        });
+
+        //Import Button event
+        ImportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ImportPanel();
             }
         });
 
@@ -211,5 +226,62 @@ public class GUIHandler extends JFrame {
         ) {
             textArea.append(text + "\n");
         }
+    }
+
+    public void ImportPanel(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Import File");
+
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION){
+            try{
+                File copied = new File("Code/AccountFiles/" + fileChooser.getSelectedFile().getName());
+                try (
+                        InputStream in = new BufferedInputStream(
+                                new FileInputStream(fileChooser.getSelectedFile()));
+                        OutputStream out = new BufferedOutputStream(
+                                new FileOutputStream(copied))) {
+
+                    byte[] buffer = new byte[1024];
+                    int lengthRead;
+                    while ((lengthRead = in.read(buffer)) > 0) {
+                        out.write(buffer, 0, lengthRead);
+                        out.flush();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public void ExportPanel(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Import File");
+        FilesHandler filesHandler = new FilesHandler();
+
+        int result = fileChooser.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION){
+            try{
+                File copied = new File("Code/AccountFiles/" + fileChooser.getSelectedFile().getName());
+                try (
+                        InputStream in = new BufferedInputStream(
+                                new FileInputStream(filesHandler.generateNewFile(CurrentUser)));
+                        OutputStream out = new BufferedOutputStream(
+                                new FileOutputStream(copied))) {
+
+                    byte[] buffer = new byte[1024];
+                    int lengthRead;
+                    while ((lengthRead = in.read(buffer)) > 0) {
+                        out.write(buffer, 0, lengthRead);
+                        out.flush();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

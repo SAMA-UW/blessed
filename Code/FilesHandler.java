@@ -67,7 +67,7 @@ public class FilesHandler {
      * @param user a user
      * @Author Mark Andrey Rubio
      */
-    private void generateNewFile(User user){
+    public File generateNewFile(User user){
         try {
             File newFile = new File("Code/AccountFiles/"+user.getUserName() + ".txt");
             if (newFile.createNewFile()){
@@ -75,11 +75,13 @@ public class FilesHandler {
                 myWriter.write("UserName: " + user.getUserName() + " Email: " + user.getEmail());
                 myWriter.close();
                 System.out.println("File Created: " + newFile.getName());
+                return newFile;
             } else {
                 //What to do when the userName already exists?
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
