@@ -219,6 +219,7 @@ public class GUIHandler extends JFrame {
 
     /**
      * A helper method to append the names of the developers to a JTextArea
+     * @author Mark Andrey Rubio
      * **/
     private void addDevelopers(JTextArea textArea, ArrayList<String> developers){
         textArea.append("This app is provided by: \n");
@@ -228,6 +229,11 @@ public class GUIHandler extends JFrame {
         }
     }
 
+    /**
+     * Creates a new JFileChooser that imports a .txt file into the account files directory/folder.
+     * @author Mark Andrey Rubio
+     * @author Arshdeep Singh
+     * */
     public void ImportPanel(){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Import File");
@@ -256,14 +262,22 @@ public class GUIHandler extends JFrame {
 
     }
 
+
+    /**
+     * Creates a new JFileChooser that creates a .txt file containing the credentials of the current user to a desired location.
+     * @author Mark Andrey Rubio
+     * @author Arshdeep Singh
+     * @author Alay Kidane
+     * */
     public void ExportPanel(){
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Import File");
+        fileChooser.setDialogTitle("Export File");
         FilesHandler filesHandler = new FilesHandler();
 
         int result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION){
             try{
+                //TODO: Change the file's destination to the desired location. Not the AccountFiles directory.
                 File copied = new File("Code/AccountFiles/" + fileChooser.getSelectedFile().getName());
                 try (
                         InputStream in = new BufferedInputStream(
