@@ -36,7 +36,7 @@ public class GUIHandler extends JFrame {
      **/
     GUIHandler(){
         //Adding the Developers of the app
-        developers.add("Mark.txt Andrey Rubio - Mark.txt.");
+        developers.add("Mark.txt Andrey Rubio - Mark.");
         developers.add("Salahuddin Majed - Salahuddin");
         developers.add("Alay Kidane - Alay");
         developers.add("Arshdeep Singh - Singh");
