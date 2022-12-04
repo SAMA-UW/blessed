@@ -1,4 +1,4 @@
-# blessed
+# Repository Cloning and Updates Tips
 ----How to create your own version of the official version of the repository  
 
 Step 1: Create a fork of the blessed repository  
