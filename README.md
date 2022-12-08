@@ -1,16 +1,26 @@
-GROUP-SAMA-blessed
+ main
+# A Guide to Creating Your Own Copy of the Repository
+Create your own version of the official version of the repository  
 
-ALAY
-MARK
-SALAHUDDIN
-SINGH
+Step 1: Create a fork of the blessed repository  
 
-We are currently working: As a user I want to export and import other information in the application.
+Step 2: Create your own repository of the blessed repository using your GitHub account  
 
-The SAMA’s project design aims are to capture functionality and simplicity of the client's desired application 
-while creating a User Friendly UI.  The client’s desire is to implement a program that can store user settings 
-that can be applied to other devices.  Additionally, as useries, they want to be able to store other types of information to the application.
-For that reason, we created a design capable of storing user settings such as First Name and Email and text files that contain other
-types of information they would like to store into the application along they will be able to export and import settings for synchronization
-to other devices. So, Program/Code to review is a java file found under the directory labeled "Code", and the program is named GUIHandler.java 
-along with other classes like GUI handler.java. So, as a reviewer, you are very welcome to give us a feedback how and what to improve for what we have worked so far.
+Step 3: Create a new project in your IDE by generating a URL of the blessed Repository  
+  
+  
+# A Guide to Suggesting or Making changes to the repository
+Suggest Changes or Making changes to the official Repository  
+
+Step 1: After making changes to the local version of the repository in your computer, commit changes to your own repository of the official repository.  
+
+Step 2: Make a new Pull Request from the blessed repository.  
+
+Step 3: Under the Compare Changes option, click the compare across forks link.  
+
+Step 4: Change the head repository to your own version of the blessed repository.  
+
+Step 5: Create pull request.  
+
+Step 6(optional): Merge the request yourself if you are sure everyone agrees, if not wait until everyone agrees.
+main
