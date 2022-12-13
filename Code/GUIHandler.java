@@ -26,6 +26,9 @@ public class GUIHandler extends JFrame {
     //Users
     private static ArrayList<User> users;
 
+    private ArrayList<String> filelist = new ArrayList<String>();
+
+
     //FileHandler- handles all file exporting and importing
     FilesHandler FileHandler = new FilesHandler();
 
@@ -125,13 +128,24 @@ public class GUIHandler extends JFrame {
         var SetProfileButton = new JButton("Profile");
         SetProfileButton.setPreferredSize(new Dimension(100,60));
         SetProfileButton.setVisible(true);
-        var ImportButton = new JButton("Profile");
+        var ImportButton = new JButton("Import");
         ImportButton.setPreferredSize(new Dimension(100,60));
         ImportButton.setVisible(true);
+        var ExportButton = new JButton("Export");
+        ExportButton.setPreferredSize(new Dimension(100,60));
+        ExportButton.setVisible(true);
+
+        var Filesbutton = new JButton("Files");
+        Filesbutton.setPreferredSize(new Dimension(100,60));
+        Filesbutton.setVisible(true);
+
 
         mainPanel.add(AboutButton);
         mainPanel.add(SetProfileButton);
         mainPanel.add(ImportButton);
+        mainPanel.add(ExportButton);
+        mainPanel.add(Filesbutton);
+
 
         //About Button event
         AboutButton.addActionListener(new ActionListener() {
@@ -157,6 +171,21 @@ public class GUIHandler extends JFrame {
             }
         });
 
+        ExportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ExportPanel();
+            }
+        });
+        Filesbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FilesPanel();
+            }
+        });
+
+
+
         //refresh the GUI/Window
         revalidate();
         repaint();
@@ -173,7 +202,7 @@ public class GUIHandler extends JFrame {
         firstNameDisplay.setPreferredSize(new Dimension(20,50));
         var emailDisplay = new TextField(50);
         emailDisplay.setPreferredSize(new Dimension(20,50));
-        var firstNameButton = new JButton("Set First Name");
+        var firstNameButton = new JButton("Set User Name");
         var emailButton = new JButton("Set Email");
         var backButton = new JButton("Back");
         mainPanel.add(firstNameDisplay);
@@ -223,8 +252,7 @@ public class GUIHandler extends JFrame {
      * **/
     private void addDevelopers(JTextArea textArea, ArrayList<String> developers){
         textArea.append("This app is provided by: \n");
-        for (String text: developers
-        ) {
+        for (String text: developers) {
             textArea.append(text + "\n");
         }
     }
@@ -297,5 +325,83 @@ public class GUIHandler extends JFrame {
             }
         }
 
+
     }
+    public void FilesPanel() {
+        mainPanel.removeAll();
+        var text = new JTextArea();
+        text.setSize(500,500);
+        try {
+
+            // Create a file object
+            File f = new File("Code/Files");
+
+            // Get all the names of the files present
+            // in the given directory
+            String[] files = f.list();
+            text.setPreferredSize(new Dimension(300,300));
+
+            // Display the names of the files
+
+
+            for (int i = 0; i < files.length; i++) {
+                filelist.add(files[i]);
+            }
+            for (String text1: filelist) {
+                text.append(text1 + "\n");
+            }
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        var backButton = new JButton("Back");
+        var Import = new JButton("Upload FIles");
+        mainPanel.add(text);
+        mainPanel.add(backButton);
+        mainPanel.add(Import);
+        backButton.addActionListener(e -> generateMenuPanel());
+
+        //refresh the GUI/Window
+        revalidate();
+        repaint();
+
+        Import.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UploadPanel();
+            }
+        });
+    }
+
+    public void UploadPanel(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Import File");
+
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION){
+            try{
+                File copied = new File("Code/Files/" + fileChooser.getSelectedFile().getName());
+                try (
+                        InputStream in = new BufferedInputStream(
+                                new FileInputStream(fileChooser.getSelectedFile()));
+                        OutputStream out = new BufferedOutputStream(
+                                new FileOutputStream(copied))) {
+
+                    byte[] buffer = new byte[1024];
+                    int lengthRead;
+                    while ((lengthRead = in.read(buffer)) > 0) {
+                        out.write(buffer, 0, lengthRead);
+                        out.flush();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
+
+
 }
