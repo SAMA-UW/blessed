@@ -327,6 +327,10 @@ public class GUIHandler extends JFrame {
 
 
     }
+    /**
+     * Creates a file panel that displays the file list.
+     * @author Arshdeep Singh
+     * */
     public void FilesPanel() {
         mainPanel.removeAll();
         var text = new JTextArea();
@@ -373,6 +377,10 @@ public class GUIHandler extends JFrame {
         });
     }
 
+    /**
+     * Creates a new JFileChooser that can take in pdf and save into the file directory of the program to be displayed as file list.
+     * @author Arshdeep Singh
+     * */
     public void UploadPanel(){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Import File");
