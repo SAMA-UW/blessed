@@ -321,6 +321,11 @@ public class GUIHandler extends JFrame {
 
 
     }
+
+    /**
+     * Creates a JFileChooser that will import a file.
+     * @author Arshdeep Singh
+     * */
     public void FilesPanel() {
         mainPanel.removeAll();
         ArrayList<String> FileList = new ArrayList<String>();
