@@ -7,9 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class GUIHandler extends JFrame {
@@ -26,9 +23,6 @@ public class GUIHandler extends JFrame {
     //Users
     private static ArrayList<User> users;
 
-    private ArrayList<String> filelist = new ArrayList<String>();
-
-
     //FileHandler- handles all file exporting and importing
     FilesHandler FileHandler = new FilesHandler();
 
@@ -39,7 +33,7 @@ public class GUIHandler extends JFrame {
      **/
     GUIHandler(){
         //Adding the Developers of the app
-        developers.add("Mark.txt Andrey Rubio - Mark.");
+        developers.add("Mark Andrey Rubio - Mark");
         developers.add("Salahuddin Majed - Salahuddin");
         developers.add("Alay Kidane - Alay");
         developers.add("Arshdeep Singh - Singh");
@@ -309,7 +303,7 @@ public class GUIHandler extends JFrame {
                 File copied = new File("Code/AccountFiles/" + fileChooser.getSelectedFile().getName());
                 try (
                         InputStream in = new BufferedInputStream(
-                                new FileInputStream(filesHandler.generateNewFile(CurrentUser)));
+                                new FileInputStream(filesHandler.generateNewFileUser(CurrentUser)));
                         OutputStream out = new BufferedOutputStream(
                                 new FileOutputStream(copied))) {
 
@@ -329,6 +323,8 @@ public class GUIHandler extends JFrame {
     }
     public void FilesPanel() {
         mainPanel.removeAll();
+        ArrayList<String> FileList = new ArrayList<String>();
+
         var text = new JTextArea();
         text.setSize(500,500);
         try {
@@ -342,12 +338,10 @@ public class GUIHandler extends JFrame {
             text.setPreferredSize(new Dimension(300,300));
 
             // Display the names of the files
-
-
             for (int i = 0; i < files.length; i++) {
-                filelist.add(files[i]);
+                FileList.add(files[i]);
             }
-            for (String text1: filelist) {
+            for (String text1: FileList) {
                 text.append(text1 + "\n");
             }
         }
@@ -355,15 +349,11 @@ public class GUIHandler extends JFrame {
             System.err.println(e.getMessage());
         }
         var backButton = new JButton("Back");
-        var Import = new JButton("Upload FIles");
+        var Import = new JButton("Upload Files");
         mainPanel.add(text);
         mainPanel.add(backButton);
         mainPanel.add(Import);
         backButton.addActionListener(e -> generateMenuPanel());
-
-        //refresh the GUI/Window
-        revalidate();
-        repaint();
 
         Import.addActionListener(new ActionListener() {
             @Override
@@ -371,8 +361,16 @@ public class GUIHandler extends JFrame {
                 UploadPanel();
             }
         });
+        //refresh the GUI/Window
+        revalidate();
+        repaint();
     }
 
+
+    /**
+     * Creates a JFileChooser that will import a file.
+     * @author Arshdeep Singh
+     * */
     public void UploadPanel(){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Import File");
@@ -393,6 +391,7 @@ public class GUIHandler extends JFrame {
                         out.write(buffer, 0, lengthRead);
                         out.flush();
                     }
+                    FilesPanel();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
