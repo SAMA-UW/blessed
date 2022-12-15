@@ -2,7 +2,6 @@ package Code;
 
 
 
-import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -58,7 +57,7 @@ public class FilesHandler {
      */
     public void generateUserFilesAfterWindowClosed(ArrayList<User> users){
         for (User user: users) {
-            generateNewFile(user);
+            generateNewFileUser(user);
         }
     }
 
@@ -67,7 +66,7 @@ public class FilesHandler {
      * @param user a user
      * @Author Mark Andrey Rubio
      */
-    public File generateNewFile(User user){
+    public File generateNewFileUser(User user){
         try {
             File newFile = new File("Code/AccountFiles/"+user.getUserName() + ".txt");
             if (newFile.createNewFile()){
@@ -77,7 +76,7 @@ public class FilesHandler {
                 System.out.println("File Created: " + newFile.getName());
                 return newFile;
             } else {
-                //What to do when the userName already exists?
+                System.out.println("User: " + user.getUserName() + ". Already exists!");
             }
         } catch (IOException e) {
             e.printStackTrace();
