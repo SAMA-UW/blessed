@@ -15,4 +15,12 @@ class GUIHandlerTest {
     @org.junit.jupiter.api.Test
     void aboutPanel() {
     }
+    /* Admin Test
+    *  @author Salahuddin Majed
+    */
+    @org.junit.jupiter.api.Test
+    void AdminTest () {
+         User newUser = new Admin ("salahuddinmajed@yahoo.com", "smajed");
+         assertEquals(true, newUser.isAdmin());
+    }
 }
